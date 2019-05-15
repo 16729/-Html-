@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <title>Document</title>
+    <style type="text/css">
+    .ui-fill{border:1px solid #666;border-top:none;border-right:none;width:400px;height:400px;margin:50px auto;position:relative;}
+    .scroe span{position:absolute;left:-40px;}
+    .a10{top:-10px;}.a9{top:30px;}.a8{top:70px;}.a7{top:110px;}.a6{top:150px;}
+    .a5{top:190px;}.a4{top:230px;}.a3{top:270px;}.a2{top:310px;}.a1{top:350px;}
+    .year span{position:absolute;top:410px;white-space:nowrap;color:#700404;}
+    .y1{left:70px;}.y2{left:150px;}.y3{left:230px;}.y4{left:310px;}.y5{left:390px;}
+    </style>
+</head>
+<body>
+    <div class="ui-fill">
+        <canvas id="demo" width="400" height="400"></canvas>
+        <div class="scroe">
+            <span class="a1">10</span>
+            <span class="a2">20</span>
+            <span class="a3">30</span>
+            <span class="a4">40</span>
+            <span class="a5">50</span>
+            <span class="a6">60</span>
+            <span class="a7">70</span>
+            <span class="a8">80</span>
+            <span class="a9">90</span>
+            <span class="a10">100</span>
+        </div>
+        <div class="year">
+            <span class="y1">1月</span>
+            <span class="y2">2月</span>
+            <span class="y3">3月</span>
+            <span class="y4">4月</span>
+            <span class="y5">5月</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var target = document.getElementById('demo');
+    var pic = target.getContext('2d');
+    //参数
+    var sum = 400,
+        ratio = 400/100;
+    // 画线 
+    function drawContLine(opt){
+        pic.beginPath();
+        var path = opt.path,//[[0,0],[20,30]......]
+            color = opt.color;
+        pic.moveTo(path[0][0],path[0][1]);
+        var n = 1,
+            len = path.length;
+        for(;n<len;n++){
+            pic.lineTo(path[n][0],path[n][1]);
+        }
+        pic.lineWidth = 1;
+        pic.strokeStyle = color;
+        pic.stroke();
+        pic.closePath();
+    }
+    // 刻度线
+    (function(){
+        var scale = 20,
+            i = sum/scale,
+            n = 0;
+        for(;n<i;n++){
+            drawContLine({'path':[[scale*n*4,0],[scale*n*4,sum]],'color':'#f4f4f4'});
+            drawContLine({'path':[[0,scale*n],[sum,scale*n]],'color':'#f4f4f4'});                        
+        }
+    })();
+    // 分数转化为坐标输出
+    function transforCoor(opt){
+        var scroes = opt.scroes,
+            scale = 20*4,
+            n = 0,
+            len = scroes.length,
+            a_path = [];
+        for(;n<len;n++){
+            var x = sum - scroes[n]*ratio;
+            var arry = [scale*(n+1),x];
+            //console.log(arry);
+            a_path.push(arry);
+        }
+
+        drawContLine({'path':a_path,'color':opt.color});
+    }
+    transforCoor({'scroes':[90,80,98,70,60],'color':'#259'});
+    transforCoor({'scroes':[88,86,85,84,85],'color':'#f60'});
+    </script>
+</body>
+</html>
