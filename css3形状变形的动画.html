@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>变形与动画</title>
+</head>
+<style type="text/css">
+	div{
+		width:300px;
+		height: 200px;
+		background-color: aquamarine;
+		margin: +-0 auto;
+		-webkit-transition-property:border-radius,height,width;
+		transition-property: border-radius,height,width;
+		-webkit-?:1s;
+		transition-duration: 1s;
+		-webkit-transition-function:ease-out;
+		transition-timing-function: ease-out;
+		-webkit-transition-delay:.2s;
+		transition-delay: .2s;
+	}
+	div:hover{
+		width: 100px;
+		height: 100px;
+		border-radius: 150px;
+		background-color: aqua;
+	}
+</style>
+<body>
+<div>
+
+</div>
+</body>
+</html>
